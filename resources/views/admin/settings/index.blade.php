@@ -41,7 +41,10 @@
                         @php
                             $labels = [
                                 'why_choose_us_title' => 'Judul Section "Why Choose Us"',
-                                'why_choose_us_description' => 'Deskripsi Section "Why Choose Us"'
+                                'why_choose_us_description' => 'Deskripsi Section "Why Choose Us"',
+                                'yayasan_nama' => 'Nama Yayasan',
+                                'yayasan_akta_notaris' => 'Tanggal Akta Notaris',
+                                'yayasan_no_reg_ham' => 'No. Registrasi KumHAM'
                             ];
                             $displayName = $labels[$s->key] ?? str_replace('_', ' ', ucfirst($s->key));
                         @endphp

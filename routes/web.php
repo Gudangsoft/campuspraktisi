@@ -134,6 +134,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Prodi Unggulan
     Route::resource('prodi-unggulan', \App\Http\Controllers\Admin\ProdiUnggulanController::class)->parameters(['prodi-unggulan' => 'prodiUnggulan']);
     
+    // Pimpinan
+    Route::resource('pimpinan', \App\Http\Controllers\Admin\PimpinanController::class);
+    
     // AI Writing Assistant
     Route::post('/ai/generate', [\App\Http\Controllers\Admin\AIController::class, 'generate'])->name('ai.generate');
 });

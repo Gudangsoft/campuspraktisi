@@ -29,50 +29,57 @@
         </div>
 
         <div class="row justify-content-center g-4">
-            <!-- Direktur -->
-            <div class="col-md-5 col-lg-4">
-                <div class="card border-0 shadow-sm pimpinan-card h-100">
-                    <div class="p-4 text-center">
-                        <div class="profile-img-container mx-auto mb-4">
-                            <img src="https://ui-avatars.com/api/?name=Muhammad+Yusuf&background=0D47A1&color=fff&size=200" alt="Direktur" class="img-fluid rounded-circle shadow-sm border border-4 border-white">
-                        </div>
-                        <h4 class="fw-bold text-dark mb-1">Muhammad Yusuf, S.Sos., M.M</h4>
-                        <p class="text-primary fw-bold mb-3 text-uppercase small" style="letter-spacing: 1px;">Direktur</p>
-                        <div class="social-links d-flex justify-content-center gap-2">
-                            <span class="btn btn-primary btn-sm rounded-circle"><i class="fas fa-envelope"></i></span>
-                            <span class="btn btn-outline-primary btn-sm rounded-circle"><i class="fab fa-linkedin-in"></i></span>
+            @foreach($pimpinan as $index => $item)
+                @if($index == 0) <!-- Direktur usually first -->
+                <div class="col-md-5 col-lg-4">
+                    <div class="card border-0 shadow-sm pimpinan-card h-100">
+                        <div class="p-4 text-center">
+                            <div class="profile-img-container mx-auto mb-4">
+                                @if($item->foto)
+                                    <img src="{{ asset('storage/'.$item->foto) }}" alt="{{ $item->nama }}" class="img-fluid rounded-circle shadow-sm border border-4 border-white">
+                                @else
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($item->nama) }}&background=0D47A1&color=fff&size=200" alt="{{ $item->nama }}" class="img-fluid rounded-circle shadow-sm border border-4 border-white">
+                                @endif
+                            </div>
+                            <h4 class="fw-bold text-dark mb-1">{{ $item->nama }}</h4>
+                            <p class="text-primary fw-bold mb-3 text-uppercase small" style="letter-spacing: 1px;">{{ $item->jabatan }}</p>
+                            @if($item->email || $item->linkedin)
+                            <div class="social-links d-flex justify-content-center gap-2">
+                                @if($item->email)
+                                    <a href="mailto:{{ $item->email }}" class="btn btn-primary btn-sm rounded-circle text-white d-flex align-items-center justify-content-center"><i class="fas fa-envelope"></i></a>
+                                @endif
+                                @if($item->linkedin)
+                                    <a href="{{ $item->linkedin }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center"><i class="fab fa-linkedin-in"></i></a>
+                                @endif
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-            </div>
+                @endif
+            @endforeach
         </div>
 
         <div class="row justify-content-center g-4 mt-2">
-            <!-- WD I -->
-            <div class="col-md-5 col-lg-4">
-                <div class="card border-0 shadow-sm pimpinan-card h-100">
-                    <div class="p-4 text-center">
-                        <div class="profile-img-container mx-auto mb-4">
-                            <img src="https://ui-avatars.com/api/?name=Ponsen+Sindu&background=1976D2&color=fff&size=200" alt="WD I" class="img-fluid rounded-circle shadow-sm border border-4 border-white">
+            @foreach($pimpinan as $index => $item)
+                @if($index > 0)
+                <div class="col-md-5 col-lg-4">
+                    <div class="card border-0 shadow-sm pimpinan-card h-100">
+                        <div class="p-4 text-center">
+                            <div class="profile-img-container mx-auto mb-4">
+                                @if($item->foto)
+                                    <img src="{{ asset('storage/'.$item->foto) }}" alt="{{ $item->nama }}" class="img-fluid rounded-circle shadow-sm border border-4 border-white">
+                                @else
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($item->nama) }}&background=1976D2&color=fff&size=200" alt="{{ $item->nama }}" class="img-fluid rounded-circle shadow-sm border border-4 border-white">
+                                @endif
+                            </div>
+                            <h4 class="fw-bold text-dark mb-1">{{ $item->nama }}</h4>
+                            <p class="text-secondary fw-bold mb-3 text-uppercase small" style="letter-spacing: 1px;">{{ $item->jabatan }}</p>
                         </div>
-                        <h4 class="fw-bold text-dark mb-1">Ponsen Sindu Prawito, S.Si., MM</h4>
-                        <p class="text-secondary fw-bold mb-3 text-uppercase small" style="letter-spacing: 1px;">Wakil Direktur I</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- WD II -->
-            <div class="col-md-5 col-lg-4">
-                <div class="card border-0 shadow-sm pimpinan-card h-100">
-                    <div class="p-4 text-center">
-                        <div class="profile-img-container mx-auto mb-4">
-                            <img src="https://ui-avatars.com/api/?name=Shahniarti+Soetriono&background=2196F3&color=fff&size=200" alt="WD II" class="img-fluid rounded-circle shadow-sm border border-4 border-white">
-                        </div>
-                        <h4 class="fw-bold text-dark mb-1">Shahniarti Soetriono, SE</h4>
-                        <p class="text-secondary fw-bold mb-3 text-uppercase small" style="letter-spacing: 1px;">Wakil Direktur II</p>
-                    </div>
-                </div>
-            </div>
+                @endif
+            @endforeach
         </div>
     </div>
 </section>
@@ -85,14 +92,14 @@
                 <div class="text-start">
                     <h6 class="text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 2px;">Governance</h6>
                     <h2 class="fw-bold mb-4 display-6">Penyelenggara Perguruan Tinggi</h2>
-                    <p class="text-muted mb-5 lead">Politeknik Praktisi diselenggarakan secara profesional di bawah naungan Yayasan Pengkajian Dan Penerapan Akuntansi.</p>
+                    <p class="text-muted mb-5 lead">Politeknik Praktisi diselenggarakan secara profesional di bawah naungan {{ setting('yayasan_nama', 'Yayasan Pengkajian Dan Penerapan Akuntansi') }}.</p>
                     
                     <div class="card border-0 bg-light p-4 rounded-4 shadow-sm mb-4">
                         <div class="d-flex align-items-center mb-3">
                             <div class="bg-primary text-white rounded-circle p-3 d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
                                 <i class="fas fa-landmark"></i>
                             </div>
-                            <h5 class="fw-bold m-0 text-dark">Yayasan Pengkajian Dan Penerapan Akuntansi</h5>
+                            <h5 class="fw-bold m-0 text-dark">{{ setting('yayasan_nama', 'Yayasan Pengkajian Dan Penerapan Akuntansi') }}</h5>
                         </div>
                     </div>
                 </div>
@@ -104,15 +111,24 @@
                         <h5 class="m-0 fw-bold"><i class="fas fa-file-contract me-2"></i>Data Legalitas & Struktur Yayasan</h5>
                     </div>
                     <div class="card-body p-4 bg-white">
+                        <!-- Dynamic Yayasan Personnel -->
+                        @foreach($yayasan as $item)
                         <div class="mb-4 d-flex align-items-center p-3 bg-light rounded-3 shadow-sm border-start border-4 border-primary">
-                            <div class="flex-shrink-0 me-3 p-3 bg-primary text-white rounded-circle">
-                                <i class="fas fa-user-tie fa-2x"></i>
+                            <div class="flex-shrink-0 me-3">
+                                @if($item->foto)
+                                    <img src="{{ asset('storage/'.$item->foto) }}" alt="{{ $item->nama }}" class="rounded-circle shadow-sm" style="width: 60px; height: 60px; object-fit: cover;">
+                                @else
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                        <i class="fas fa-user-tie fa-2x"></i>
+                                    </div>
+                                @endif
                             </div>
                             <div>
-                                <h6 class="text-muted m-0 small fw-bold">KETUA YAYASAN</h6>
-                                <h5 class="fw-bold m-0 text-primary">Eulis Eliyati, SE., M.Si</h5>
+                                <h6 class="text-muted m-0 small fw-bold">{{ strtoupper($item->jabatan) }}</h6>
+                                <h5 class="fw-bold m-0 text-primary">{{ $item->nama }}</h5>
                             </div>
                         </div>
+                        @endforeach
 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3 border-bottom">
@@ -120,14 +136,14 @@
                                     <i class="fas fa-calendar-check text-muted me-2"></i>
                                     <span class="text-muted small fw-bold">TGL AKTA NOTARIS</span>
                                 </div>
-                                <span class="badge bg-secondary-subtle text-secondary rounded-pill px-3">2007-08-15</span>
+                                <span class="badge bg-secondary-subtle text-secondary rounded-pill px-3">{{ setting('yayasan_akta_notaris', '2007-08-15') }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3 border-0">
                                 <div>
                                     <i class="fas fa-id-card text-muted me-2"></i>
                                     <span class="text-muted small fw-bold">NO. REG HUMHAM</span>
                                 </div>
-                                <span class="badge bg-primary-subtle text-primary rounded-pill px-3">C-3973 HT 01.02 TH 2007</span>
+                                <span class="badge bg-primary-subtle text-primary rounded-pill px-3">{{ setting('yayasan_no_reg_ham', 'C-3973 HT 01.02 TH 2007') }}</span>
                             </li>
                         </ul>
                     </div>

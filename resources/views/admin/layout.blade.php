@@ -385,6 +385,11 @@
                 <span>Sambutan</span>
                 <span class="badge bg-success">{{ \App\Models\Greeting::count() }}</span>
             </a>
+            <a href="{{ route('admin.pimpinan.index') }}" class="{{ request()->is('admin/pimpinan*') ? 'active' : '' }}">
+                <i class="fas fa-user-tie"></i>
+                <span>Jajaran Pimpinan</span>
+                <span class="badge bg-primary">{{ \App\Models\Pimpinan::count() }}</span>
+            </a>
             <a href="{{ route('admin.agendas.index') }}" class="{{ request()->is('admin/agendas*') ? 'active' : '' }}">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Agenda</span>

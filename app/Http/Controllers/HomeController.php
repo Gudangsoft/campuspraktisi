@@ -25,6 +25,8 @@ class HomeController extends Controller
     
     public function pimpinan()
     {
-        return view('frontend.pimpinan');
+        $pimpinan = \App\Models\Pimpinan::where('kategori', 'pimpinan')->where('is_active', true)->orderBy('order')->get();
+        $yayasan = \App\Models\Pimpinan::where('kategori', 'yayasan')->where('is_active', true)->orderBy('order')->get();
+        return view('frontend.pimpinan', compact('pimpinan', 'yayasan'));
     }
 }
