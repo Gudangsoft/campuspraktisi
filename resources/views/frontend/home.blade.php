@@ -196,137 +196,62 @@
             <p class="text-muted mx-auto mb-5" style="max-width: 600px; font-size: 1.1rem;">Eksplorasi pilihan masa depan Anda melalui program pendidikan berstandar tinggi dan relevan dengan industri.</p>
         </div>
 
-        <div class="row g-5">
+        <div class="row g-4 justify-content-center">
             @foreach($prodiUnggulan as $prodi)
             <div class="col-md-6 col-lg-4">
-                <div class="prodi-showcase-card">
-                    <div class="card border-0 bg-transparent h-100">
-                        <div class="image-box shadow-lg" style="height: 320px; border-radius: 25px; overflow: hidden; position: relative; background: #fff;">
-                            @if($prodi->gambar)
-                                <img src="{{ asset('storage/'.$prodi->gambar) }}" alt="{{ $prodi->nama }}" 
-                                     class="main-prodi-img"
-                                     style="width: 100%; height: 100%; object-fit: contain; padding: 10px; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
-                            @else
-                                <div class="d-flex align-items-center justify-content-center h-100 bg-primary-subtle text-primary">
-                                    <i class="fas fa-university fa-5x opacity-25"></i>
-                                </div>
-                            @endif
-                            
-                            <!-- Hidden CTA Overlay -->
-                            <div class="img-overlay d-flex align-items-center justify-content-center">
-                                @if($prodi->link)
-                                    <a href="{{ $prodi->link }}" target="_blank" class="btn btn-white btn-lg rounded-pill fw-bold shadow">
-                                        Lihat Detail <i class="fas fa-chevron-right ms-2"></i>
-                                    </a>
-                                @endif
+                <div class="prodi-image-only-card h-100">
+                    @if($prodi->link)
+                        <a href="{{ $prodi->link }}" target="_blank" class="d-block text-decoration-none h-100">
+                    @endif
+                    
+                    <div class="image-box shadow-sm" style="height: 300px; border-radius: 20px; overflow: hidden; position: relative; background: #fff; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                        @if($prodi->gambar)
+                            <img src="{{ asset('storage/'.$prodi->gambar) }}" alt="{{ $prodi->nama }}" 
+                                 class="main-prodi-img"
+                                 style="width: 100%; height: 100%; object-fit: contain; padding: 15px; transition: transform 0.6s ease;">
+                        @else
+                            <div class="d-flex align-items-center justify-content-center h-100 bg-primary-subtle text-primary">
+                                <i class="fas fa-university fa-5x opacity-25"></i>
                             </div>
-                        </div>
+                        @endif
                         
-                        <div class="content-box text-center mt-n4 position-relative mx-3" style="z-index: 10;">
-                            <div class="bg-white shadow-lg p-4 rounded-4 prodi-meta">
-                                <h4 class="fw-bold mb-2 text-dark" style="font-size: 1.4rem;">{{ $prodi->nama }}</h4>
-                                <div class="prodi-divider mb-3"></div>
-                                <p class="text-muted mb-0 lh-sm" style="font-size: 0.85rem;">
-                                    {{ Str::limit($prodi->deskripsi, 80) }}
-                                </p>
-                            </div>
+                        <!-- Hover Overlay -->
+                        <div class="img-hover-overlay d-flex flex-column align-items-center justify-content-center">
+                            <i class="fas fa-external-link-alt text-white mb-2" style="font-size: 2rem;"></i>
+                            <span class="text-white fw-bold">{{ $prodi->nama }}</span>
                         </div>
                     </div>
+
+                    @if($prodi->link)
+                        </a>
+                    @endif
                 </div>
             </div>
             @endforeach
         </div>
     </div>
-
-    <!-- Background Decoration -->
-    <div class="deco-blob deco-1"></div>
-    <div class="deco-blob deco-2"></div>
 </section>
 
 @push('styles')
 <style>
-    .fw-black { font-weight: 900 !important; }
-    
-    .prodi-showcase-card {
-        perspective: 1000px;
+    .prodi-image-only-card .image-box:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
     }
-    
-    .image-box {
-        transition: all 0.5s ease;
+    .prodi-image-only-card .image-box:hover .main-prodi-img {
+        transform: scale(1.08);
     }
-    
-    .img-overlay {
+    .img-hover-overlay {
         position: absolute;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(var(--primary-rgb), 0.6);
+        background: rgba(var(--primary-rgb), 0.7);
         opacity: 0;
-        transition: all 0.4s ease;
-        backdrop-filter: blur(4px);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(2px);
     }
-    
-    .prodi-showcase-card:hover .image-box {
-        transform: translateY(-10px) rotateX(5deg);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.2) !important;
-    }
-    
-    .prodi-showcase-card:hover .img-overlay {
+    .prodi-image-only-card .image-box:hover .img-hover-overlay {
         opacity: 1;
     }
-    
-    .prodi-showcase-card:hover .main-prodi-img {
-        transform: scale(1.1);
-    }
-    
-    .prodi-meta {
-        transition: all 0.4s ease;
-        border: 1px solid rgba(0,0,0,0.03);
-    }
-    
-    .prodi-showcase-card:hover .prodi-meta {
-        transform: translateY(-5px);
-        background: #fff;
-    }
-    
-    .prodi-divider {
-        width: 40px;
-        height: 3px;
-        background: var(--primary);
-        margin: 0 auto;
-        border-radius: 10px;
-    }
-    
-    .btn-white {
-        background: #fff;
-        color: var(--primary);
-        border: none;
-    }
-    
-    .btn-white:hover {
-        background: var(--primary);
-        color: #fff;
-    }
-    
-    .deco-blob {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(80px);
-        z-index: 1;
-        opacity: 0.15;
-    }
-    
-    .deco-1 {
-        width: 500px; height: 500px;
-        background: var(--primary);
-        top: -200px; right: -200px;
-    }
-    
-    .deco-2 {
-        width: 400px; height: 400px;
-        background: var(--accent);
-        bottom: -150px; left: -150px;
-    }
-    
-    .mt-n4 { margin-top: -40px !important; }
 </style>
 @endpush
 @endif
