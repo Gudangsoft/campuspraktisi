@@ -188,40 +188,48 @@
 
 <!-- Prodi Unggulan Section -->
 @if(isset($prodiUnggulan) && $prodiUnggulan->count() > 0)
-<section class="prodi-unggulan-section py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+<section class="prodi-unggulan-section py-5 position-relative overflow-hidden" style="background: #fdfdfd;">
     <div class="container position-relative" style="z-index: 2;">
         <div class="text-center mb-5">
-            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3 fw-bold text-uppercase tracking-wider" style="letter-spacing: 2px; font-size: 0.8rem;">Pilihan Terbaik</span>
-            <h2 class="display-5 fw-bold mb-3" style="color: #2c3e50;">Program Studi <span class="text-primary">Unggulan</span></h2>
-            <div class="mx-auto" style="width: 80px; height: 4px; background: var(--primary); border-radius: 2px;"></div>
+            <h6 class="text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 3px;">Top Programs</h6>
+            <h2 class="display-4 fw-black mb-4" style="color: #0f172a; font-weight: 800;">Program Studi <span class="text-primary">Unggulan</span></h2>
+            <p class="text-muted mx-auto mb-5" style="max-width: 600px; font-size: 1.1rem;">Eksplorasi pilihan masa depan Anda melalui program pendidikan berstandar tinggi dan relevan dengan industri.</p>
         </div>
 
-        <div class="row g-4 mt-2">
+        <div class="row g-5">
             @foreach($prodiUnggulan as $prodi)
             <div class="col-md-6 col-lg-4">
-                <div class="prodi-card-modern h-100 position-relative">
-                    <div class="card h-100 border-0 shadow-lg overflow-hidden" style="border-radius: 20px; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                        <div class="prodi-image-container position-relative" style="height: 200px; padding: 20px; background: white;">
+                <div class="prodi-showcase-card">
+                    <div class="card border-0 bg-transparent h-100">
+                        <div class="image-box shadow-lg" style="height: 320px; border-radius: 25px; overflow: hidden; position: relative; background: #fff;">
                             @if($prodi->gambar)
                                 <img src="{{ asset('storage/'.$prodi->gambar) }}" alt="{{ $prodi->nama }}" 
-                                     style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.6s ease;">
+                                     class="main-prodi-img"
+                                     style="width: 100%; height: 100%; object-fit: contain; padding: 10px; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
                             @else
-                                <div class="d-flex align-items-center justify-content-center h-100 bg-light rounded-4">
-                                    <i class="fas fa-graduation-cap text-primary fa-4x opacity-25"></i>
+                                <div class="d-flex align-items-center justify-content-center h-100 bg-primary-subtle text-primary">
+                                    <i class="fas fa-university fa-5x opacity-25"></i>
                                 </div>
                             @endif
+                            
+                            <!-- Hidden CTA Overlay -->
+                            <div class="img-overlay d-flex align-items-center justify-content-center">
+                                @if($prodi->link)
+                                    <a href="{{ $prodi->link }}" target="_blank" class="btn btn-white btn-lg rounded-pill fw-bold shadow">
+                                        Lihat Detail <i class="fas fa-chevron-right ms-2"></i>
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                         
-                        <div class="card-body p-4 text-center">
-                            <h4 class="fw-bold mb-3" style="color: #2c3e50; font-size: 1.25rem;">{{ $prodi->nama }}</h4>
-                            <p class="text-muted mb-4" style="font-size: 0.9rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                                {{ $prodi->deskripsi }}
-                            </p>
-                            @if($prodi->link)
-                                <a href="{{ $prodi->link }}" target="_blank" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm prodi-btn" style="font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease;">
-                                    Detail Program <i class="fas fa-arrow-right ms-2"></i>
-                                </a>
-                            @endif
+                        <div class="content-box text-center mt-n4 position-relative mx-3" style="z-index: 10;">
+                            <div class="bg-white shadow-lg p-4 rounded-4 prodi-meta">
+                                <h4 class="fw-bold mb-2 text-dark" style="font-size: 1.4rem;">{{ $prodi->nama }}</h4>
+                                <div class="prodi-divider mb-3"></div>
+                                <p class="text-muted mb-0 lh-sm" style="font-size: 0.85rem;">
+                                    {{ Str::limit($prodi->deskripsi, 80) }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -229,25 +237,96 @@
             @endforeach
         </div>
     </div>
-    
-    <!-- Decorative elements -->
-    <div class="position-absolute top-0 start-0 translate-middle opacity-25" style="width: 400px; height: 400px; background: radial-gradient(circle, var(--primary) 0%, transparent 70%); z-index: 1;"></div>
-    <div class="position-absolute bottom-0 end-0 translate-middle-y opacity-25" style="width: 300px; height: 300px; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); z-index: 1;"></div>
+
+    <!-- Background Decoration -->
+    <div class="deco-blob deco-1"></div>
+    <div class="deco-blob deco-2"></div>
 </section>
 
 @push('styles')
 <style>
-    .prodi-card-modern .card:hover {
-        transform: translateY(-15px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+    .fw-black { font-weight: 900 !important; }
+    
+    .prodi-showcase-card {
+        perspective: 1000px;
     }
-    .prodi-card-modern .card:hover img {
-        transform: scale(1.08);
+    
+    .image-box {
+        transition: all 0.5s ease;
     }
-    .prodi-btn:hover {
-        transform: translateX(5px);
-        box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.4) !important;
+    
+    .img-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(var(--primary-rgb), 0.6);
+        opacity: 0;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(4px);
     }
+    
+    .prodi-showcase-card:hover .image-box {
+        transform: translateY(-10px) rotateX(5deg);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.2) !important;
+    }
+    
+    .prodi-showcase-card:hover .img-overlay {
+        opacity: 1;
+    }
+    
+    .prodi-showcase-card:hover .main-prodi-img {
+        transform: scale(1.1);
+    }
+    
+    .prodi-meta {
+        transition: all 0.4s ease;
+        border: 1px solid rgba(0,0,0,0.03);
+    }
+    
+    .prodi-showcase-card:hover .prodi-meta {
+        transform: translateY(-5px);
+        background: #fff;
+    }
+    
+    .prodi-divider {
+        width: 40px;
+        height: 3px;
+        background: var(--primary);
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+    
+    .btn-white {
+        background: #fff;
+        color: var(--primary);
+        border: none;
+    }
+    
+    .btn-white:hover {
+        background: var(--primary);
+        color: #fff;
+    }
+    
+    .deco-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        z-index: 1;
+        opacity: 0.15;
+    }
+    
+    .deco-1 {
+        width: 500px; height: 500px;
+        background: var(--primary);
+        top: -200px; right: -200px;
+    }
+    
+    .deco-2 {
+        width: 400px; height: 400px;
+        background: var(--accent);
+        bottom: -150px; left: -150px;
+    }
+    
+    .mt-n4 { margin-top: -40px !important; }
 </style>
 @endpush
 @endif
