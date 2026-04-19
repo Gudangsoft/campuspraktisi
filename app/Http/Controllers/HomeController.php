@@ -21,6 +21,7 @@ class HomeController extends Controller
         $prodiUnggulan = \App\Models\ProdiUnggulan::latest()->get();
         
         return view('frontend.home', compact('sliders', 'greetings', 'whyChooseUs', 'featuredNews', 'latestNews', 'galleryPhotos', 'galleryVideos', 'agendas', 'announcements', 'menus', 'prodiUnggulan'));
+    }
     
     public function pimpinan()
     {
