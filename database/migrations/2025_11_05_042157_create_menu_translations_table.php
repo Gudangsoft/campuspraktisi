@@ -8,15 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('menu_translations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('menu_id')->constrained()->onDelete('cascade');
-            $table->string('locale', 2)->index();
-            $table->string('title');
-            $table->timestamps();
-            
-            $table->unique(['menu_id', 'locale']);
-        });
+        if (!Schema::hasTable('menu_translations')) {
+            Schema::create('menu_translations', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('menu_id')->constrained()->onDelete('cascade');
+                $table->string('locale', 2)->index();
+                $table->string('title');
+                $table->timestamps();
+                
+                $table->unique(['menu_id', 'locale']);
+            });
+        }
     }
 
     public function down(): void

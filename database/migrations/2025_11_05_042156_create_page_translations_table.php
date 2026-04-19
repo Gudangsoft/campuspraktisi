@@ -8,17 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('page_translations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('page_id')->constrained()->onDelete('cascade');
-            $table->string('locale', 2)->index();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->longText('content');
-            $table->timestamps();
-            
-            $table->unique(['page_id', 'locale']);
-        });
+        if (!Schema::hasTable('page_translations')) {
+            Schema::create('page_translations', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('page_id')->constrained()->onDelete('cascade');
+                $table->string('locale', 2)->index();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->longText('content');
+                $table->timestamps();
+                
+                $table->unique(['page_id', 'locale']);
+            });
+        }
     }
 
     public function down(): void

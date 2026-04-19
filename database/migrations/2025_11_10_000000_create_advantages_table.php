@@ -8,16 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('advantages', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('icon')->default('fa-star');
-            $table->string('icon_color')->default('#3498db');
-            $table->boolean('is_active')->default(true);
-            $table->integer('order')->default(0);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('advantages')) {
+            Schema::create('advantages', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->text('description')->nullable();
+                $table->string('icon')->default('fa-star');
+                $table->string('icon_color')->default('#3498db');
+                $table->boolean('is_active')->default(true);
+                $table->integer('order')->default(0);
+                $table->timestamps();
+            });
+        }
     }
 
     public function down(): void

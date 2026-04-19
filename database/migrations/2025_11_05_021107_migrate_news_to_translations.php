@@ -11,17 +11,17 @@ return new class extends Migration
         $news = DB::table('news')->get();
         
         foreach ($news as $item) {
-            // Create Indonesian translation (default)
-            DB::table('news_translations')->insert([
-                'news_id' => $item->id,
-                'locale' => 'id',
-                'title' => $item->title,
-                'slug' => $item->slug,
-                'excerpt' => $item->excerpt,
-                'content' => $item->content,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            // Create Indonesian translation (default) if not exists
+            DB::table('news_translations')->updateOrInsert(
+                ['news_id' => $item->id, 'locale' => 'id'],
+                [
+                    'title' => $item->title,
+                    'slug' => $item->slug,
+                    'excerpt' => $item->excerpt,
+                    'content' => $item->content,
+                    'updated_at' => now(),
+                ]
+            );
         }
     }
 
