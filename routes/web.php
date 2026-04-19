@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\DatabaseBackupController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/pimpinan', [HomeController::class, 'pimpinan'])->name('pimpinan');
 Route::get('/news', [NewsPublicController::class, 'index'])->name('news.index');
 Route::get('/news/{slug}', [NewsPublicController::class, 'show'])->name('news.show');
 Route::get('/category/{slug}', [NewsPublicController::class, 'category'])->name('news.category');

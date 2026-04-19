@@ -1590,6 +1590,9 @@
                     @endforeach
                     
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->is('pimpinan*') ? 'active' : '' }}" href="{{ route('pimpinan') }}">Pimpinan</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->is('news*') ? 'active' : '' }}" href="{{ route('news.index') }}">Berita</a>
                     </li>
                 </ul>
