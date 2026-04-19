@@ -30,7 +30,7 @@ class PimpinanController extends Controller
             'order' => 'integer'
         ]);
 
-        $data = $request->all();
+        $data = $request->only(['nama', 'jabatan', 'kategori', 'order', 'email', 'linkedin']);
 
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('pimpinan', 'public');
@@ -56,7 +56,7 @@ class PimpinanController extends Controller
             'order' => 'integer'
         ]);
 
-        $data = $request->all();
+        $data = $request->only(['nama', 'jabatan', 'kategori', 'order', 'email', 'linkedin']);
 
         if ($request->hasFile('foto')) {
             if ($pimpinan->foto) {
