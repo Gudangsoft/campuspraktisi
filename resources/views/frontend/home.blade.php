@@ -198,10 +198,10 @@
             @foreach($prodiUnggulan as $prodi)
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-sm overflow-hidden prodi-card" style="transition: all 0.3s ease;">
-                    <div class="prodi-image-wrapper" style="height: 220px; overflow: hidden; position: relative;">
+                    <div class="prodi-image-wrapper" style="height: 220px; overflow: hidden; position: relative; background-color: #f8f9fa;">
                         @if($prodi->gambar)
                             <img src="{{ asset('storage/'.$prodi->gambar) }}" alt="{{ $prodi->nama }}" 
-                                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                                 style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease;">
                         @else
                             <div class="bg-primary-subtle d-flex align-items-center justify-content-center h-100">
                                 <i class="fas fa-graduation-cap text-primary fa-4x opacity-50"></i>
