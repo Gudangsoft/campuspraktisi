@@ -197,31 +197,49 @@
         <div class="row g-4">
             @foreach($prodiUnggulan as $prodi)
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4" style="transition: transform 0.3s;">
-                    <div class="card-img-top mb-3">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden prodi-card" style="transition: all 0.3s ease;">
+                    <div class="prodi-image-wrapper" style="height: 220px; overflow: hidden; position: relative;">
                         @if($prodi->gambar)
-                            <img src="{{ asset('storage/'.$prodi->gambar) }}" alt="{{ $prodi->nama }}" style="width: 100px; height: 100px; object-fit: contain; border-radius: 50%;">
+                            <img src="{{ asset('storage/'.$prodi->gambar) }}" alt="{{ $prodi->nama }}" 
+                                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
                         @else
-                            <div class="mx-auto bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
-                                <i class="fas fa-graduation-cap text-white fa-3x"></i>
+                            <div class="bg-primary-subtle d-flex align-items-center justify-content-center h-100">
+                                <i class="fas fa-graduation-cap text-primary fa-4x opacity-50"></i>
                             </div>
                         @endif
+                        <div class="prodi-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7));"></div>
+                        <h4 class="prodi-title-overlay" style="position: absolute; bottom: 15px; left: 20px; color: white; margin: 0; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                            {{ $prodi->nama }}
+                        </h4>
                     </div>
-                    <div class="card-body p-0">
-                        <h4 class="card-title fw-bold">{{ $prodi->nama }}</h4>
-                        <p class="card-text text-muted mt-3">{{ Str::limit($prodi->deskripsi, 120) }}</p>
+                    <div class="card-body p-3">
+                        <p class="card-text text-muted mb-3" style="font-size: 0.95rem; line-height: 1.6;">
+                            {{ Str::limit($prodi->deskripsi, 100) }}
+                        </p>
+                        @if($prodi->link)
+                            <a href="{{ $prodi->link }}" target="_blank" class="btn btn-primary btn-sm rounded-pill px-4">
+                                Selengkapnya <i class="fas fa-arrow-right ms-1" style="font-size: 0.8rem;"></i>
+                            </a>
+                        @endif
                     </div>
-                    @if($prodi->link)
-                    <div class="card-footer bg-white border-0 pt-3">
-                        <a href="{{ $prodi->link }}" target="_blank" class="btn btn-outline-primary rounded-pill px-4">Selengkapnya</a>
-                    </div>
-                    @endif
                 </div>
             </div>
             @endforeach
         </div>
     </div>
 </section>
+
+@push('styles')
+<style>
+    .prodi-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+    .prodi-card:hover img {
+        transform: scale(1.1);
+    }
+</style>
+@endpush
 @endif
 
 <!-- Why Choose Us Section -->
